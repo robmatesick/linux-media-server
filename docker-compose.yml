@@ -1,0 +1,181 @@
+#######################################################################################################################
+# docker-compose.yml
+######################
+# Docker Compose file for full RPI media server.
+#####
+# Create a .env file in the same folder as this file and change the variables.
+#   MOUNT_POINT=/tmp/
+#   VPN_PROVIDER=changeme
+#   VPN_USERNAME=changeme
+#   VPN_PASSWORD=changeme
+#####
+# Modification History:
+#  DATE        AUTHOR         DESCRIPTION
+#  ----------  -------------  -----------------------------------------------------------------------------------------
+#  2020-03-18  R. Matesick    Initial version
+#  2020-12-06  R. Matesick    'deluge-openvpn' image no longer maintained; transitioning back to Transmission
+#  2021-01-24  R. Matesick    Implemented gluetun, to decouple VPN from other services.  Switch back to deluge.
+#######################################################################################################################
+version: "3.7"
+
+services:
+
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - media-net
+    ports:
+      - 8888:8888/tcp # HTTP proxy
+#      - 8388:8388/tcp # Shadowsocks
+#      - 8388:8388/udp # Shadowsocks
+      - 8000:8000/tcp # Built-in HTTP control server
+      # other containers ports
+      - 8112:8112     # deluge webui
+      - 58846:58846   # deluge daemon
+      - 8989:8989     # sonarr
+      - 7878:7878     # radarr
+      - 8686:8686     # lidarr
+      - 9117:9117     # jackett
+    volumes:
+      - ./data_gluetun:/gluetun
+      - ./data_gluetun/port_forward:/tmp/gluetun/forwarded_port
+    environment:
+      - TZ=US/Eastern
+      - PGID=1000
+      - PUID=1000
+      - VPNSP=${VPN_PROVIDER}
+      - OPENVPN_USER=${VPN_USERNAME}
+      - OPENVPN_PASSWORD=${VPN_PASSWORD}
+      - REGION=United States
+      - FIREWALL=off
+      - FIREWALL_OUTBOUND_SUBNETS=192.168.1.0/24,192.168.3.0/24
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=on
+    restart: unless-stopped
+
+  jackett:
+    image: ghcr.io/linuxserver/jackett
+    container_name: jackett
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    environment:
+      - PGID=1000
+      - PUID=1000
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${MOUNT_POINT}/media_server/jackett/config:/config
+      - ${MOUNT_POINT}/media_server/jackett/downloads:/downloads
+
+  deluge:
+    image: ghcr.io/linuxserver/deluge
+    container_name: deluge
+    network_mode: "service:gluetun"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=US/Eastern
+      - DELUGE_LOGLEVEL=error #optional
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${MOUNT_POINT}/media_server/deluge:/config
+      - ${MOUNT_POINT}/media_server/downloads:/downloads
+    restart: unless-stopped
+
+  lidarr:
+    image: ghcr.io/linuxserver/lidarr
+    container_name: lidarr
+    restart: always
+    network_mode: "service:gluetun"
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TZ=US/Eastern
+      - UMASK_SET=022
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${MOUNT_POINT}/media_server/lidarr:/config
+      - ${MOUNT_POINT}/media_server/downloads:/downloads
+#      - ${MOUNT_POINT}/media_server/transmission/completed:/downloads
+      - ${MOUNT_POINT}/Media/Music:/music
+
+  radarr:
+    image: ghcr.io/linuxserver/radarr
+    #image: hotio/radarr
+    container_name: radarr
+    restart: always
+    network_mode: "service:gluetun"
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TZ=US/Eastern
+      - UMASK_SET=022
+      #- UMASK=022
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${MOUNT_POINT}/media_server/radarr:/config
+#      - ${MOUNT_POINT}/media_server/radarr:/config/app
+      - ${MOUNT_POINT}/media_server/downloads:/downloads
+#      - ${MOUNT_POINT}/media_server/transmission/completed:/downloads
+      - ${MOUNT_POINT}/Media/Video/Movies:/movies
+
+  sonarr:
+    image: ghcr.io/linuxserver/sonarr
+    container_name: sonarr
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    environment:
+      - PGID=1000
+      - PUID=1000
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${MOUNT_POINT}/media_server/sonarr:/config
+      - ${MOUNT_POINT}/media_server/downloads:/downloads
+#      - ${MOUNT_POINT}/media_server/transmission/completed:/downloads
+      - ${MOUNT_POINT}/Media/Video/TV_Shows:/tv
+
+  plex:
+    image: jaymoulin/plex
+    container_name: plex
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - PGID=1000
+      - PUID=1000
+    ports:
+      - 32400:32400
+      - 33400:33400
+      - 1900:1900
+      - 3005:3005
+      - 5353:5353
+      - 8324:8324
+      - 32410:32410
+      - 32412:32412
+      - 32413:32413
+      - 32414:32414
+      - 32469:32469
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/appdata/plex:/root/Library
+      - ${MOUNT_POINT}/Media:/media
+
+  ombi:
+    image: ghcr.io/linuxserver/ombi
+    container_name: ombi
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=US/Eastern
+      - BASE_URL=/ombi
+    ports:
+      - 3579:3579
+    volumes:
+      - ${MOUNT_POINT}/media_server/ombi:/config
+
+
+networks:
+  media-net:
+    driver: bridge
