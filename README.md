@@ -5,10 +5,10 @@ Dockerized for RPI
 
 ## Pre-install Docker
 ```bash
-curl -sSL https://get.docker.com | sh
-sudo usermod -aG docker pi
-sudo apt -y install libffi-dev libssl-dev python3 python3-pip
-sudo apt -y remove python-configparser
+curl -sSL https://get.docker.com | sh && \
+sudo usermod -aG docker pi && \
+sudo apt -y install libffi-dev libssl-dev python3 python3-pip && \
+sudo apt -y remove python-configparser && \
 sudo pip3 install docker-compose
 ```
 
