@@ -127,6 +127,7 @@ docker-compose up -d
 # Post-install Configs
 
 ## Deluge
+* Verify that bottom-right status bar shows VPN IP address and not your home IP, otherwise gluetun is not working and you are not secure!
 * Change download directory to `/downloads`
 * Enable labels plug-in
 * Modify Bandwidth & Queue settings as you see fit
