@@ -39,8 +39,7 @@ get_latest_release() {
     sed -E 's/.*"([^"]+)".*/\1/'                                    # Pluck JSON value
 }
 
-REL=$(get_latest_release "docker/compose")
-
+REL=$(get_latest_release "docker/compose") && \
 sudo curl -L "https://github.com/docker/compose/releases/download/${REL}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
 sudo chmod +x /usr/local/bin/docker-compose
 ```
