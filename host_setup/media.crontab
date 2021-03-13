@@ -5,6 +5,15 @@
 ###
 # Format:
 #   m h  dom mon dow   command
+#
+#  field          allowed values
+#  -----          --------------
+#  minute         0-59
+#  hour           0-23
+#  day of month   1-31
+#  month          1-12 (or names)
+#  day of week    0-6 (0 or 7 is Sun, or use names)
+#
 ######################################################################################################################
 ## Weekly - Update Docker images and re-provision containers
 00 04 * * 6 . /home/media/.bashrc && /opt/mediaserv/stop_update_start.sh > /opt/mediaserv/stop_update_start.cronlog 2>&1
