@@ -29,8 +29,8 @@ Search for media to get, tell it to search for it, and after some time it will a
       │                   │     │ └──────────┘ │      │  Plex    │
       │                   │     │              ├─────►│  Media   │
       │                   │     └──────────────┘      │  Server  │
-Less-technical /      Technical                       └────┬─────┘
-   External             Users                              │
+Less-technical /      Technical                       └──────────┘
+   External             Users                              ▲
     Users                 │                                │
       │                   │                                │
       └───────────────────┴────────────────────────────────┘
