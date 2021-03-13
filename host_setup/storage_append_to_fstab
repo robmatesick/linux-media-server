@@ -1,2 +1,1 @@
-UUID=1A584B63584B3D2F /mnt/volume ntfs-3g uid=1000,gid=1000,umask=007 0 0
-UUID=0f1d2462-7ae9-45b4-bc11-27141b3bd3db /mnt/appdata ext4 defaults 0
+/dev/disk/by-uuid/5ce8471a-d97b-4114-a45f-d77d8de57264 /mnt/media01 ext4 defaults 0 0
