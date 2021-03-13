@@ -1,6 +1,6 @@
-# linux-media-server
-Configuration for a Linux-based media server with Plex.
-Making use of Docker Compose.
+# linux-media-server 🎥 🎵 📺
+Configuration for a :penguin: Linux-based media server with Plex.  
+Making use of Docker Compose.  
 Tested with Ubuntu Server LTS.
 
 ## Architecture
