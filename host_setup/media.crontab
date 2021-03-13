@@ -1,0 +1,10 @@
+######################################################################################################################
+# media.crontab
+##############
+# Crontab for user that runs the media server processes and containers.
+###
+# Format:
+#   m h  dom mon dow   command
+######################################################################################################################
+## Weekly - Update Docker images and re-provision containers
+00 04 * * 6 . /home/media/.bashrc && /opt/mediaserv/stop_update_start.sh > /opt/mediaserv/stop_update_start.cronlog 2>&1
