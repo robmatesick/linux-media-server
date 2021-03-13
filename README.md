@@ -43,7 +43,7 @@ Less-technical /      Technical                       └────┬──�
 | [plex](https://hub.docker.com/r/linuxserver/plex) | Plex Media Server (PMS) is the main media server |
 | [ombi](https://hub.docker.com/r/linuxserver/ombi) | Self-hosted media request & user management portal for Plex |
 
-## Installation
+## Pre-requisites
 
 ### Docker
 Based on latest documentation available [here](https://docs.docker.com/engine/install/ubuntu/).
@@ -72,7 +72,7 @@ sudo apt-get -y install docker-ce docker-ce-cli containerd.io
 sudo usermod -aG docker $USER
 ```
 
-### Install Docker Compose
+### Docker Compose
 Based on latest documentation available [here](https://docs.docker.com/compose/install/).
 ```bash
 get_latest_release() {
@@ -109,6 +109,17 @@ Here is a high level idea of my filesystem layouts
 ├── opt
 │   ├── mediaserver
 |   │   ├── server_data
+```
+
+# == Installation ==
+```bash
+cd /opt/mediaserver
+git clone https://github.com/robmatesick/linux-media-server .
+```
+
+# Startup
+```bash
+docker-compose up -d
 ```
 
 # Post-install Configs
