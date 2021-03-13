@@ -91,3 +91,7 @@ Here is a high level idea of my filesystem layouts
 * Add setups for Lidarr, Radarr, and Sonarr
 * Enabe plex sign-in for other users
 
+## Plex Media Server (PMS)
+* Claim the server by getting a token from https://plex.tv/claim and then adding to the PLEX_CLAIM container variable, and restart the container
+* Enable hardware transcoding
+* Setup libraries
