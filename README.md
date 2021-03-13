@@ -9,14 +9,14 @@ Tested with Ubuntu Server LTS.
 ### Components:
 | Service | Purpose |
 | ------- | ------- |
-| gluetun | VPN client & network gateway |
-| jackett | A single repository of maintained indexer scraping & translation logic - removing the burden from other apps |
-| lidarr  | Music collection manager for BitTorrent |
-| radarr  | Movie collection manager for BitTorrent |
-| sonarr  | TV Show collection manager for BitTorrent |
-| deluge  | Server-based BitTorrent client with a web UI|
-| plex    | Plex Media Server (PMS) is the main media server |
-| ombi    | Self-hosted media request & user management portal for Plex |
+| [gluetun](https://hub.docker.com/r/qmcgaw/gluetun) | VPN client & network gateway |
+| [jackett](https://hub.docker.com/r/linuxserver/jackett) | A single repository of maintained indexer scraping & translation logic - removing the burden from other apps |
+| [lidarr](https://hub.docker.com/r/linuxserver/lidarr) | Music collection manager for BitTorrent |
+| [radarr](https://hub.docker.com/r/linuxserver/radarr) | Movie collection manager for BitTorrent |
+| [sonarr](https://hub.docker.com/r/linuxserver/sonarr) | TV Show collection manager for BitTorrent |
+| [deluge](https://hub.docker.com/r/linuxserver/deluge) | Server-based BitTorrent client with a web UI|
+| [plex](https://hub.docker.com/r/linuxserver/plex) | Plex Media Server (PMS) is the main media server |
+| [ombi](https://hub.docker.com/r/linuxserver/ombi) | Self-hosted media request & user management portal for Plex |
 
 ## Installation
 
