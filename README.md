@@ -90,7 +90,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 * Mount external storage.  I mounted an ext4 filesystem to `/mnt/media01`.
 * Create operational folder (where to clone this repo into).  I created `/opt/mediaserver`.
 
-IMPORTANT:  The `.env` and `docker-compose.yml` files make use of these folder structure choices.  Make your own changes if you wish.
+*IMPORTANT:*  The `.env` and `docker-compose.yml` files make use of these folder structure choices.  Make your own changes if you wish.
 
 Here is a high level idea of my filesystem layouts
 ```
