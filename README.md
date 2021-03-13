@@ -1,7 +1,9 @@
 # linux-media-server 🎥 🎵 📺
 Configuration for a :penguin: Linux-based media server with Plex.  
 Making use of Docker Compose.  
-Tested with Ubuntu Server LTS.
+Tested with Ubuntu Server LTS.  
+
+Search for media to get, tell it to search for it, and after some time it will automatically be fetched and made available to Plex for watching/listening!
 
 ## Architecture
 
