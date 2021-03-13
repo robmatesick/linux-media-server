@@ -3,6 +3,21 @@ Configuration for a Linux-based media server with Plex.
 Making use of Docker Compose.
 Tested with Ubuntu Server LTS.
 
+## Architecture
+
+
+### Components:
+| Service | Purpose |
+| ------- | ------- |
+| gluetun | VPN client & network gateway |
+| jackett | A single repository of maintained indexer scraping & translation logic - removing the burden from other apps |
+| lidarr  | Music collection manager for BitTorrent |
+| radarr  | Movie collection manager for BitTorrent |
+| sonarr  | TV Show collection manager for BitTorrent |
+| deluge  | Server-based BitTorrent client with a web UI|
+| plex    | Plex Media Server (PMS) is the main media server |
+| ombi    | Self-hosted media request & user management portal for Plex |
+
 ## Installation
 
 ### Docker
