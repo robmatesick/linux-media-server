@@ -5,6 +5,9 @@ Tested with Ubuntu Server LTS.
 
 ## Architecture
 
+```
+
+```
 
 ### Components:
 | Service | Purpose |
