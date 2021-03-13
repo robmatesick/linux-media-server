@@ -3,7 +3,9 @@ Configuration for a Linux-based media server with Plex.
 Making use of Docker Compose.
 Tested with Ubuntu Server LTS.
 
-## Install Docker
+## Installation
+
+### Docker
 Based on latest documentation available [here](https://docs.docker.com/engine/install/ubuntu/).
 ```bash
 # Clean-up & install pre-reqs
@@ -30,7 +32,7 @@ sudo apt-get -y install docker-ce docker-ce-cli containerd.io
 sudo usermod -aG docker $USER
 ```
 
-## Install Docker Compose
+### Install Docker Compose
 Based on latest documentation available [here](https://docs.docker.com/compose/install/).
 ```bash
 get_latest_release() {
@@ -42,6 +44,31 @@ get_latest_release() {
 REL=$(get_latest_release "docker/compose") && \
 sudo curl -L "https://github.com/docker/compose/releases/download/${REL}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
 sudo chmod +x /usr/local/bin/docker-compose
+```
+
+### Setup filesystem layout
+* Mount external storage.  I mounted an ext4 filesystem to `/mnt/media01`.
+* Create operational folder (where to clone this repo into).  I created `/opt/mediaserver`.
+
+IMPORTANT:  The `.env` and `docker-compose.yml` files make use of these folder structure choices.  Make your own changes if you wish.
+
+Here is a high level idea of my filesystem layouts
+```
+/
+├── mnt
+│   ├── media01
+|   │   ├── media
+|   |   │   ├── music
+|   |   │   ├── photos
+|   |   │   ├── videos
+|   |   |   │   ├── movies
+|   |   |   │   ├── other
+|   |   |   │   ├── tv_shows
+|   │   ├── server_data
+|   |   │   ├── downloads
+├── opt
+│   ├── mediaserver
+|   │   ├── server_data
 ```
 
 # Post-install Configs
