@@ -33,7 +33,15 @@ sudo usermod -aG docker $USER
 ## Install Docker Compose
 Based on latest documentation available [here](https://docs.docker.com/compose/install/).
 ```bash
-sudo curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+get_latest_release() {
+  curl --silent "https://api.github.com/repos/$1/releases/latest" | # Get latest release from GitHub api
+    grep '"tag_name":' |                                            # Get tag line
+    sed -E 's/.*"([^"]+)".*/\1/'                                    # Pluck JSON value
+}
+
+REL=$(get_latest_release "docker/compose")
+
+sudo curl -L "https://github.com/docker/compose/releases/download/${REL}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
