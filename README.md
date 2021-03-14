@@ -35,6 +35,15 @@ Less-technical /      Technical                       └───────�
       │                   │                                │
       └───────────────────┴────────────────────────────────┘
 ```
+Walk-thru:
+1. Optionally, a user requests media via Ombi.  If the request is approved, it is submitted to the appropriate aggregator (Lidarr, Radarr, Sonarr, etc.).
+2. A "technical user" can browse to any aggregator portal and search for or manage existing media selections, and choose to Search now for available media.
+3. The search request is sent to Jackett to query the configured indexers.
+4. Jackett returns a formatted list of available trackers, in the form of a torrent.
+5. Deluge starts downloading the media file(s) to the "downloads" directory.
+6. The torrent result is sent to the download client, Deluge for processing.
+7. Once Deluge finishing downloading the media, the notification is sent back to the aggregator which then moves the file from the "downloads" path to the destination path.
+8. Plex is monitoring the destination media paths, notices the new media file(s), and updates the libraries and is then available for viewing/listening by users.
 
 ### Components:
 | Service | Purpose |
