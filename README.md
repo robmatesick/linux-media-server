@@ -5,6 +5,17 @@ Tested with Ubuntu Server LTS.
 
 Search for media to get, tell it to search for it, and after some time it will automatically be fetched and made available to Plex for watching/listening!
 
+**Contents:**
+1. [Architecture](#architecture)
+    1. [Components](#components)
+1. [Pre-Requisities](#pre-requisites)
+    1. [Docker](#docker)
+    1. [Docker Compose](#docker-compose) 
+    1. [Setup filesystem layout](#setup-filesystem-layout)
+1. [Installation](#installation)
+1. [Startup](#startup)
+1. [Post-install Configs](#post-install-configs)
+
 ## Architecture
 
 ```
@@ -125,7 +136,7 @@ Here is a high level idea of my filesystem layouts
 |   │   ├── server_data
 ```
 
-# == Installation ==
+# Installation
 ```bash
 cd /opt/mediaserver
 git clone https://github.com/robmatesick/linux-media-server .
