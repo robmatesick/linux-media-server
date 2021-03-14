@@ -1,11 +1,7 @@
-# linux-media-server 🎥 🎵 📺
-Configuration for a :penguin: Linux-based media server with Plex.  
-Making use of Docker Compose.  
-Tested with Ubuntu Server LTS.  
+<h1 align="center"> Linux Media Server <br />🎥 🎵 📺 </h1>
 
-Search for media to get, tell it to search for it, and after some time it will automatically be fetched and made available to Plex for watching/listening!
-
-**Contents:**
+## Table of Contents:
+1. [Introduction](#introduction)
 1. [Architecture](#architecture)
     1. [Components](#components)
 1. [Pre-Requisities](#pre-requisites)
@@ -15,6 +11,15 @@ Search for media to get, tell it to search for it, and after some time it will a
 1. [Installation](#installation)
 1. [Startup](#startup)
 1. [Post-install Configs](#post-install-configs)
+
+
+## Introduction
+Configuration for a :penguin: Linux-based media server with Plex.  
+Making use of Docker Compose.  
+Tested with Ubuntu Server LTS.  
+
+Search for media to get, tell it to search for it, and after some time it will automatically be fetched and made available to Plex for watching/listening!
+
 
 ## Architecture
 
@@ -56,6 +61,7 @@ Walk-thru:
 7. Once Deluge finishing downloading the media, the notification is sent back to the aggregator which then moves the file from the "downloads" path to the destination path.
 8. Plex is monitoring the destination media paths, notices the new media file(s), and updates the libraries and is then available for viewing/listening by users.
 
+
 ### Components:
 | Service | Purpose |
 | ------- | ------- |
@@ -67,6 +73,7 @@ Walk-thru:
 | [deluge](https://hub.docker.com/r/linuxserver/deluge) | Server-based BitTorrent client with a web UI|
 | [plex](https://hub.docker.com/r/linuxserver/plex) | Plex Media Server (PMS) is the main media server |
 | [ombi](https://hub.docker.com/r/linuxserver/ombi) | Self-hosted media request & user management portal for Plex |
+
 
 ## Pre-requisites
 
@@ -136,39 +143,42 @@ Here is a high level idea of my filesystem layouts
 |   │   ├── server_data
 ```
 
-# Installation
+
+## Installation
 ```bash
 cd /opt/mediaserver
 git clone https://github.com/robmatesick/linux-media-server .
 ```
 
-# Startup
+
+## Startup
 ```bash
 docker-compose up -d
 ```
 
-# Post-install Configs
 
-## Deluge
+## Post-install Configs
+
+### Deluge
 * Verify that bottom-right status bar shows VPN IP address and not your home IP, otherwise gluetun is not working and you are not secure!
 * Change download directory to `/downloads`
 * Enable labels plug-in
 * Modify Bandwidth & Queue settings as you see fit
 
-## Jackett
+### Jackett
 * Add several indexers
 
-## Lidarr/Radarr/Sonarr
+### Lidarr/Radarr/Sonarr
 * Add download client
 * Add each indexer as custom Torznab from Jackett list
 
-## Ombi
+### Ombi
 * Sign-in with Plex account
 * Complete setup on Plex media server
 * Add setups for Lidarr, Radarr, and Sonarr
 * Enabe plex sign-in for other users
 
-## Plex Media Server (PMS)
+### Plex Media Server (PMS)
 * Claim the server by getting a token from https://plex.tv/claim and then adding to the PLEX_CLAIM container variable, and restart the container
 * Enable hardware transcoding
 * Setup libraries
